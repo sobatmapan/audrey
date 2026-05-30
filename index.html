@@ -1,427 +1,151 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google-site-verification" content="pLGhOe7EqU4-zsAfOnfCV9RLbOvxYYZB17a_HdyydYQ" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Data Notes | Catatan Probabilitas & Pola Data</title>
+
+<meta name="description" content="Catatan ringan seputar probabilitas, pola data, statistik sederhana, dan kebiasaan membaca angka secara lebih kritis serta terstruktur.">
+
+<meta name="robots" content="index,follow,max-image-preview:large">
+
+<link rel="canonical" href="https://togelonline.space/">
+
+<meta name="google-site-verification" content="pLGhOe7EqU4-zsAfOnfCV9RLbOvxYYZB17a_HdyydYQ" />
 <meta name="google-site-verification" content="yoRzta1murIo-rwr5esMB459oIu7HNs5jaiM602_0hI" />
-  <title>Data Notes — Probabilitas, Pola, & Catatan Singkat</title>
-  <meta name="description" content="Catatan ringkas seputar probabilitas, literasi data, dan cara membaca angka dengan lebih kritis serta terstruktur." />
-  <link rel="canonical" href="https://togelonline.space/" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Data Notes | Catatan Probabilitas & Pola Data">
+<meta property="og:description" content="Catatan singkat mengenai probabilitas, pola angka, dan kebiasaan membaca data dengan lebih kritis serta sederhana.">
+<meta property="og:url" content="https://togelonline.space/">
+<meta property="og:image" content="okey.png">
 
-  <style>
-    :root{
-      --bg: #070914;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.08);
-      --line: rgba(255,255,255,.12);
-      --text: rgba(255,255,255,.90);
-      --muted: rgba(255,255,255,.70);
-      --a1: #7c3aed;   /* violet */
-      --a2: #06b6d4;   /* cyan */
-      --a3: #22c55e;   /* green */
-      --shadow: 0 18px 50px rgba(0,0,0,.35);
-      --r: 18px;
-    }
-    *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
-    body{
-      margin:0;
-      font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(900px 500px at 15% -10%, rgba(124,58,237,.22), transparent 60%),
-        radial-gradient(900px 500px at 90% 0%, rgba(6,182,212,.18), transparent 58%),
-        radial-gradient(800px 450px at 50% 110%, rgba(34,197,94,.10), transparent 55%),
-        var(--bg);
-    }
-    a{ color: inherit; }
-    .container{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 0 18px;
-    }
+<link rel="icon" type="image/png" href="okey.png">
+<link rel="apple-touch-icon" href="okey.png">
 
-    /* Topbar */
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(7,9,20,.55);
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      backdrop-filter: blur(10px);
-    }
-    .topbar-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding: 12px 0;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      font-weight: 900;
-      letter-spacing:.3px;
-      font-size: 12px;
-      color: rgba(255,255,255,.85);
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-    }
-    .badge-dot{
-      width:10px;height:10px;border-radius:999px;
-      background: linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 8px 18px rgba(124,58,237,.22);
-    }
-    .nav{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .nav a{
-      text-decoration:none;
-      font-weight: 900;
-      font-size: 12px;
-      letter-spacing: .25px;
-      color: var(--muted);
-      padding: 8px 10px;
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 999px;
-      background: rgba(0,0,0,.16);
-    }
-    .nav a:hover{ color: var(--text); border-color: rgba(255,255,255,.18); }
+<meta name="theme-color" content="#111827">
 
-    /* Header */
-    .site-header{ padding: 42px 0 18px; }
-    .brand{
-      display:flex;
-      align-items:flex-end;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-    .logo{
-      width:44px;height:44px;border-radius:16px;
-      background: linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 16px 40px rgba(124,58,237,.25);
-    }
-    h1{
-      font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-      margin:0;
-      font-size: clamp(28px, 3.2vw, 46px);
-      line-height:1.05;
-      letter-spacing:.2px;
-    }
-    .subtitle{
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.7;
-      max-width: 70ch;
-    }
-
-    /* Cards */
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-    .section{ padding: 18px; }
-    @media (min-width: 768px){ .section{ padding: 24px; } }
-
-    h2{
-      font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-      margin: 0 0 10px;
-      font-size: clamp(18px, 2.2vw, 28px);
-    }
-    p{
-      margin: 0 0 12px;
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 14.5px;
-    }
-
-    blockquote{
-      margin: 14px 0;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      position: relative;
-    }
-    blockquote:before{
-      content:"“";
-      position:absolute;
-      top:-12px; left:10px;
-      font-size: 48px;
-      color: rgba(255,255,255,.16);
-      font-family: ui-serif, Georgia, serif;
-      font-weight: 900;
-    }
-    blockquote p{
-      margin:0;
-      color: rgba(255,255,255,.88);
-      font-weight: 900;
-      padding-left: 22px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    @media (min-width: 900px){ .grid{ grid-template-columns: 1fr 1fr; } }
-
-    /* Reference links */
-    .links{
-      list-style:none;
-      padding:0;
-      margin: 12px 0 0;
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-    @media (min-width: 640px){ .links{ grid-template-columns: 1fr 1fr; } }
-    @media (min-width: 900px){ .links{ grid-template-columns: 1fr 1fr 1fr; } }
-
-    .links li a{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 10px 12px;
-      text-decoration:none;
-      font-weight: 900;
-      letter-spacing: .15px;
-      color: rgba(255,255,255,.90);
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-    }
-    .links li a:after{
-      content:"↗";
-      font-weight: 900;
-      color: rgba(255,255,255,.55);
-    }
-
-    .hr{
-      height:1px;
-      background: rgba(255,255,255,.10);
-      border:0;
-      margin: 18px 0;
-    }
-
-    footer{
-      margin-top: 22px;
-      padding: 18px 0 26px;
-      color: rgba(255,255,255,.55);
-      font-size: 12px;
-      text-align:center;
-      border-top: 1px solid rgba(255,255,255,.10);
-    }
-  </style>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#09090f;color:#f3f4f6;line-height:1.75;background-image:radial-gradient(circle at top left,rgba(124,58,237,.18),transparent 35%),radial-gradient(circle at top right,rgba(6,182,212,.14),transparent 35%)}a{color:#c4b5fd;text-decoration:none;font-weight:700}a:hover{text-decoration:underline}.wrap{width:min(960px,calc(100% - 24px));margin:auto}.top{position:sticky;top:0;background:rgba(9,9,15,.82);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);z-index:20}.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0}.logo{font-weight:900;font-size:13px;letter-spacing:.3px;color:#fff}.menu{display:flex;gap:10px;flex-wrap:wrap}.menu a{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:12px;color:#d1d5db}.hero{padding:48px 0 20px}.hero h1{margin:0;font-size:clamp(30px,4vw,48px);line-height:1.05}.hero p{margin:12px 0 0;color:#cbd5e1;max-width:720px}.card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:22px;margin-bottom:18px;backdrop-filter:blur(10px)}h2{margin:0 0 12px;font-size:24px;color:#fff}h3{margin:0 0 8px;font-size:18px;color:#fff}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.mini{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px}.mini p,.card p{color:#d1d5db}.quote{background:rgba(255,255,255,.04);border-left:4px solid #8b5cf6;padding:15px;border-radius:12px;margin:18px 0;color:#fff;font-weight:700}.links{list-style:none;padding:0;margin:14px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:10px}.links li a{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#fff}.links li a:after{content:"↗";opacity:.6}.foot{text-align:center;color:#9ca3af;font-size:13px;padding:28px 0}@media(max-width:760px){.grid,.links{grid-template-columns:1fr}.hero h1{font-size:32px}}
+</style>
 </head>
 
 <body>
 
-  <div class="topbar">
-    <div class="container">
-      <div class="topbar-inner">
-        <div class="badge"><span class="badge-dot"></span> DATA • NOTES</div>
-        <nav class="nav">
-          <a href="#artikel">Artikel</a>
-          <a href="#referensi">Referensi</a>
-        </nav>
-      </div>
-    </div>
-  </div>
+<header class="top">
+<div class="wrap">
+<div class="logo">DATA • NOTES</div>
 
-  <header class="site-header">
-    <div class="container">
-      <div class="brand">
-        <div class="logo"></div>
-        <h1>Data Notes</h1>
-      </div>
-      <p class="subtitle">
-        Catatan singkat tentang probabilitas, cara membaca data, dan kebiasaan berpikir yang lebih kritis saat melihat angka.
-      </p>
-    </div>
-  </header>
+<nav class="menu">
+<a href="#artikel">Artikel</a>
+<a href="#referensi">Referensi</a>
+</nav>
+</div>
+</header>
 
-  <main class="container" style="padding-bottom:26px">
+<section class="hero">
+<div class="wrap">
+<h1>Catatan Probabilitas & Cara Membaca Data</h1>
 
-    <section id="artikel" class="card section">
-      <h2>Probabilitas Itu Bukan “Ramalan”</h2>
+<p>
+Kadang angka terlihat sederhana sampai kita mencoba memahaminya terlalu dalam. Halaman ini berisi catatan ringan mengenai probabilitas, pola data, dan kebiasaan membaca informasi secara lebih kritis.
+</p>
+</div>
+</section>
 
-      <div class="grid">
-        <div class="card section" style="box-shadow:none">
-          <h2 style="font-size:18px;margin-bottom:8px">1) Bedakan Pola dan Kebetulan</h2>
-          <p>Otak manusia suka mencari pola. Tapi tidak semua pola punya makna. Mulai dari data yang cukup, lalu cek apakah pola itu konsisten atau hanya kebetulan.</p>
-        </div>
-        <div class="card section" style="box-shadow:none">
-          <h2 style="font-size:18px;margin-bottom:8px">2) Pahami Risiko Kesalahan</h2>
-          <p>Prediksi apa pun punya peluang salah. Kebiasaan yang baik adalah menuliskan asumsi: apa yang diketahui, apa yang belum, dan apa yang bisa berubah.</p>
-        </div>
-      </div>
+<main class="wrap">
 
-      <div class="grid" style="margin-top:12px">
-        <div class="card section" style="box-shadow:none">
-          <h2 style="font-size:18px;margin-bottom:8px">3) Catat Metode, Bukan Cuma Hasil</h2>
-          <p>Kalau kamu menulis catatan, tulis langkahnya: sumber data, cara hitung, dan alasan mengambil kesimpulan. Ini bikin evaluasi lebih mudah.</p>
-        </div>
-        <div class="card section" style="box-shadow:none">
-          <h2 style="font-size:18px;margin-bottom:8px">4) Ringkas dengan Bahasa Sederhana</h2>
-          <p>Tujuan catatan adalah bisa dibaca ulang. Buat ringkas: 2–3 poin inti, 1 paragraf kesimpulan, dan (kalau perlu) daftar referensi.</p>
-          <ul class="site-list">
-<li><a href="https://airport-parking-quote.co.uk/" target="_blank" rel="noopener">Travel Parking Guide</a></li>
-<li><a href="https://beyondtrends.store/" target="_blank" rel="noopener">Modern Style Hub</a></li>
-<li><a href="https://cave222.org/" target="_blank" rel="noopener">Creative Cave Space</a></li>
-<li><a href="https://digitalgoodies.store/" target="_blank" rel="noopener">Online Resource Center</a></li>
-<li><a href="https://elvvaws.org/" target="_blank" rel="noopener">Community Insight Portal</a></li>
-<li><a href="https://expressthoughts.site/" target="_blank" rel="noopener">Daily Thought Journal</a></li>
-<li><a href="https://feltribute.xyz/" target="_blank" rel="noopener">Tribute Collection</a></li>
-<li><a href="https://flakey.info/" target="_blank" rel="noopener">Random Notes Archive</a></li>
-<li><a href="https://football-livescore.co.uk/" target="_blank" rel="noopener">Match Update Center</a></li>
-<li><a href="https://freeflowingthoughts.site/" target="_blank" rel="noopener">Open Mind Stories</a></li>
-<li><a href="https://genericlevitra-buy.info/" target="_blank" rel="noopener">Health Reference Info</a></li>
-<li><a href="https://healthyvoices.org/" target="_blank" rel="noopener">Healthy Voices Media</a></li>
-<li><a href="https://jobseek.us/" target="_blank" rel="noopener">Career Opportunity Board</a></li>
-<li><a href="https://juicylucyinfo.co.uk/" target="_blank" rel="noopener">Food & Lifestyle UK</a></li>
-<li><a href="https://katanaownersclub.co.uk/" target="_blank" rel="noopener">Motorcycle Enthusiast Club</a></li>
-<li><a href="https://kolkataescortsxx.info/" target="_blank" rel="noopener">Kolkata Urban Notes</a></li>
-<li><a href="https://laotzu.store/" target="_blank" rel="noopener">Eastern Philosophy Store</a></li>
-<li><a href="https://lifestylepulse.site/" target="_blank" rel="noopener">Lifestyle Pulse Daily</a></li>
-<li><a href="https://longchampbags.uk/" target="_blank" rel="noopener">Fashion Collection UK</a></li>
-<li><a href="https://machynllethgolfclub.co.uk/" target="_blank" rel="noopener">Golf Community Hub</a></li>
-<li><a href="https://mailstorm.biz/" target="_blank" rel="noopener">MailStorm Network</a></li>
-<li><a href="https://masjidmekarindah.id/" target="_blank" rel="noopener">Masjid Mekar Indah Official</a></li>
-<li><a href="https://michaels-kors.co.uk/" target="_blank" rel="noopener">Luxury Fashion Outlet</a></li>
-<li><a href="https://middlefieldma.us/" target="_blank" rel="noopener">Middlefield Community</a></li>
-<li><a href="https://musclesteroids.info/" target="_blank" rel="noopener">Fitness Knowledge Base</a></li>
-<li><a href="https://mypet24.co.uk/" target="_blank" rel="noopener">Pet Care Support</a></li>
-<li><a href="https://portpatrick-brewery.co.uk/" target="_blank" rel="noopener">Brewery & Craft Drinks</a></li>
-<li><a href="https://racingshares.co.uk/" target="_blank" rel="noopener">Racing Share Updates</a></li>
-<li><a href="https://replicamarket.co.uk/" target="_blank" rel="noopener">Collector Market UK</a></li>
-<li><a href="https://scriblerian.net/" target="_blank" rel="noopener">Academic Writing Space</a></li>
-<li><a href="https://shanbehzadeh.art/" target="_blank" rel="noopener">Art & Creative Gallery</a></li>
-<li><a href="https://seafishnottingham.co.uk/" target="_blank" rel="noopener">Seafood Nottingham</a></li>
-<li><a href="https://smallde.com/" target="_blank" rel="noopener">SmallDE Online</a></li>
-<li><a href="https://sobattogel.store/" target="_blank" rel="noopener">Angka Komunitas</a></li>
-<li><a href="https://togelonline.space/" target="_blank" rel="noopener">Pasaran Digital Hub</a></li>
-<li><a href="https://ubbgloucestershire.org/" target="_blank" rel="noopener">Gloucestershire Community</a></li>
-<li><a href="https://unitedforcharitableassistance.org/" target="_blank" rel="noopener">Charitable Assistance Network</a></li>
-<li><a href="https://webmaster-cs.xyz/" target="_blank" rel="noopener">Webmaster Creative Studio</a></li>
-<li><a href="https://webprediksibola.id/" target="_blank" rel="noopener">Analisa Bola Hari Ini</a></li>
-<li><a href="https://youth-diplomacy.org/" target="_blank" rel="noopener">Youth Diplomacy Forum</a></li>
-<li><a href="https://wsdata.store/" target="_blank" rel="noopener">WS Data Center</a></li>
-<li><a href="https://tgdata.store/" target="_blank" rel="noopener">TG Data Network</a></li>
-<li><a href="https://latestdata.store/" target="_blank" rel="noopener">Latest Data Source</a></li>
-<li><a href="https://emailsmarketing.store/" target="_blank" rel="noopener">Marketing Resource Hub</a></li>
-<li><a href="https://officedata.store/" target="_blank" rel="noopener">Office Resource Database</a></li>
-<li><a href="https://buydatabase.store/" target="_blank" rel="noopener">Digital Resource Market</a></li>
-<li><a href="https://koreadata.store/" target="_blank" rel="noopener">Korea Information Hub</a></li>
-<li><a href="https://bankdata.store/" target="_blank" rel="noopener">Financial Data Network</a></li>
-<li><a href="https://indonesiadata.store/" target="_blank" rel="noopener">Indonesia Resource Center</a></li>
-<li><a href="https://thailanddata.store/" target="_blank" rel="noopener">Thailand Information Hub</a></li>
-<li><a href="https://chinadata.store/" target="_blank" rel="noopener">China Insight Archive</a></li>
-<li><a href="https://lastdata.store/" target="_blank" rel="noopener">Last Data Collection</a></li>
-<li><a href="https://indiadata.store/" target="_blank" rel="noopener">India Resource Library</a></li>
-<li><a href="https://saledatabase.store/" target="_blank" rel="noopener">Sales Resource Platform</a></li>
-<li><a href="https://selldatabase.store/" target="_blank" rel="noopener">Business Leads Center</a></li>
-<li><a href="https://leadsale.store/" target="_blank" rel="noopener">Lead Generation Media</a></li>
-<li><a href="https://malaysiadata.store/" target="_blank" rel="noopener">Malaysia Resource Hub</a></li>
-<li><a href="https://telemarketingleads.store/" target="_blank" rel="noopener">Telemarketing Insights</a></li>
-<li><a href="https://insurancesdata.store/" target="_blank" rel="noopener">Insurance Information Center</a></li>
-<li><a href="https://b2cdata.store/" target="_blank" rel="noopener">B2C Resource Platform</a></li>
-<li><a href="https://livedrawchina.space/" target="_blank" rel="noopener">China Result Update</a></li>
-<li><a href="https://livedrawsgp4d.art/" target="_blank" rel="noopener">Singapore 4D Result Board</a></li>
-<li><a href="https://livedrawcambodia4d.art/" target="_blank" rel="noopener">Cambodia 4D Update</a></li>
-<li><a href="https://livedrawsgp9.shop/" target="_blank" rel="noopener">Singapore Number Update</a></li>
-<li><a href="https://garyhughes.org/" target="_blank" rel="noopener">Gary Hughes Official</a></li>
-<li><a href="https://prediksijituhk.shop/" target="_blank" rel="noopener">HK Number Reference</a></li>
-<li><a href="https://fiscalidadinternacional.org/" target="_blank" rel="noopener">International Fiscal Studies</a></li>
-<li><a href="https://paitowarnasgp.ink/" target="_blank" rel="noopener">Singapore Color Chart</a></li>
-<li><a href="https://metanerus.net/" target="_blank" rel="noopener">Number Art Space</a></li>
-<li><a href="https://prediksisdypools.net/" target="_blank" rel="noopener">Sydney Number Guide</a></li>
-<li><a href="https://cvdwitunggalabadi.com/" target="_blank" rel="noopener">CVDW Tunggal Abadi</a></li>
-<li><a href="https://lunwenchachongjiance.com/" target="_blank" rel="noopener">Academic Research Service</a></li>
-<li><a href="https://paitolengkap.org/" target="_blank" rel="noopener">Complete Chart Archive</a></li>
-<li><a href="https://pharmacielegend.shop/" target="_blank" rel="noopener">Pharmacy Legend Store</a></li>
-<li><a href="https://replicanow.shop/" target="_blank" rel="noopener">Replica Now Collection</a></li>
-<li><a href="https://sdchaye.com/" target="_blank" rel="noopener">SD Chaye Official</a></li>
-<li><a href="https://voertuiggegevens.net/" target="_blank" rel="noopener">Vehicle Information Center</a></li>
-<li><a href="https://datakeluaranhk.mom/" target="_blank" rel="noopener">Data HK</a></li>
-              <li><a href="https://diajengwitri.id/" target="_blank" rel="noopener">Diajeng</a></li>
-              <li><a href="https://barbourinternationaljackets.store/" target="_blank" rel="noopener">Data HK</a></li>
-              <li><a href="https://beliyspisok.site/" target="_blank" rel="noopener">Paito HK</a></li>
-              <li><a href="https://climbr.store/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-              <li><a href="https://achbank.store/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-              <li><a href="https://acheterderoxat.space/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-              <li><a href="https://ctupka.store/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-              <li><a href="https://filedownloadsitereank.store/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-              <li><a href="https://freya-subb-etalon.space/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-              <li><a href="https://khachatrian.space/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-              <li><a href="https://parakram.store/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-              <li><a href="https://pharmaciecotedivoire.space/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-              <li><a href="https://retinaonlinebuy.store/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-              <li><a href="https://techboole.store/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-               <li><a href="https://thietkeweb.space/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-              <li><a href="https://unitypga.store/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-              <li><a href="https://etilalkol.space/" target="_blank" rel="noopener">Paito Warna HK</a></li>
-              <li><a href="https://angkakeramat1.blogspot.com/" target="_blank" rel="noopener">Angka Keramat</a></li>
-              <li><a href="https://gravatar.com/pikavepika" target="_blank" rel="noopener">Data HK</a></li>
-              <li><a href="https://data-hk-lotto-c9f99b.webflow.io/" target="_blank" rel="noopener">Data HK Lotto</a></li>
-              <li><a href="https://sites.google.com/view/datrinbilly/beranda" target="_blank" rel="noopener">Data HK</a></li>
-              <li><a href="https://isakoofficial01-oss.github.io/kajian-budaya-populer/" target="_blank" rel="noopener">Kajian Budaya</a></li>
-              <li><a href="https://datasdylotto.github.io/pikavepika/" target="_blank" rel="noopener">Data HK</a></li>
-              <li><a href="https://rentry.co/59481-ewing-elizabeth-1971-fashion-in-underwear" target="_blank" rel="noopener">Paito HK</a></li>
+<section id="artikel" class="card">
+
+<h2>Probabilitas Bukan Sekadar Tebakan</h2>
+
+<p>
+Banyak orang melihat angka sebagai jawaban pasti, padahal dalam banyak kasus angka hanya membantu memperkirakan kemungkinan. Semakin lengkap data yang digunakan, semakin baik juga kualitas kesimpulan yang dibuat.
+</p>
+
+<p>
+Dalam membaca pola, penting untuk membedakan antara kebetulan dan konsistensi. Tidak semua angka yang muncul berulang memiliki makna khusus. Kadang otak manusia terlalu cepat menyusun cerita dari sesuatu yang sebenarnya acak.
+</p>
+
+<div class="quote">
+“Data membantu kita berpikir lebih tenang, asal cara membacanya tidak terburu-buru.”
+</div>
+
+<div class="grid">
+
+<div class="mini">
+<h3>Catatan Harian</h3>
+<p>
+Membuat catatan sederhana sering kali lebih efektif dibanding menyimpan terlalu banyak data tanpa struktur yang jelas.
+</p>
+</div>
+
+<div class="mini">
+<h3>Evaluasi Pola</h3>
+<p>
+Pola yang baik biasanya bisa diuji ulang. Kalau hasilnya berubah total setiap saat, mungkin itu hanya kebetulan yang terlihat menarik.
+</p>
+</div>
+
+<div class="mini">
+<h3>Ringkasan Data</h3>
+<p>
+Informasi yang ringkas lebih mudah dibaca ulang dibanding tabel panjang yang akhirnya hanya disimpan tanpa pernah dibuka lagi.
+</p>
+</div>
+
+<div class="mini">
+<h3>Sudut Pandang</h3>
+<p>
+Kadang perbedaan hasil muncul bukan karena datanya salah, tetapi karena cara melihatnya berbeda.
+</p>
+</div>
+
+</div>
+
+<p style="margin-top:16px">
+Membaca data tidak selalu harus rumit. Yang penting adalah memahami konteks, sumber informasi, dan batas dari kesimpulan yang dibuat.
+</p>
+
+</section>
+
+<section class="card">
+
+<h2>Catatan Tambahan</h2>
+
+<p>
+Dalam dunia digital, informasi bergerak cepat. Karena itu, kemampuan memilah data menjadi penting agar tidak semua hal dianggap sebagai fakta hanya karena terlihat meyakinkan.
+</p>
+
+<p>
+Catatan sederhana seperti ini dibuat untuk membantu pembaca melihat data dengan sudut pandang yang lebih santai namun tetap logis.
+</p>
+
+</section>
+
+<section id="referensi" class="card">
+
+<h2>Referensi</h2>
+
+<ul class="links">
+<li><a href="https://medium.com/@seopools01" target="_blank" rel="noopener noreferrer">Catatan Data Medium</a></li>
+<li><a href="https://datahk2026.github.io/data-hk-2026-terbaru/" target="_blank" rel="noopener noreferrer">Arsip GitHub Pages</a></li>
+<li><a href="https://datahongkong6.wordpress.com/" target="_blank" rel="noopener noreferrer">Portal WordPress</a></li>
+<li><a href="https://livedrawhk328975.blogspot.com/" target="_blank" rel="noopener noreferrer">Catatan Result Harian</a></li>
+<li><a href="https://tgdata.store/" target="_blank" rel="noopener noreferrer">TG Data Network</a></li>
+<li><a href="https://latestdata.store/" target="_blank" rel="noopener noreferrer">Latest Data Source</a></li>
+<li><a href="https://officedata.store/" target="_blank" rel="noopener noreferrer">Office Resource Database</a></li>
+<li><a href="https://buydatabase.store/" target="_blank" rel="noopener noreferrer">Digital Resource Market</a></li>
 </ul>
 
-        </div>
-      </div>
+</section>
 
-      <blockquote>
-        <p>Angka membantu kita berpikir lebih jernih—asal metodenya jelas.</p>
-      </blockquote>
-    </section>
+</main>
 
-    <hr class="hr" />
-
-    <section id="referensi" class="card section">
-      <h2>Referensi</h2>
-<ul class="verticalt-menu">
-<li><a href="https://prediksisydney.store/" target="_blank" rel="noopener noreferrer">Prediksi SDY Hari ini</a></li>
-<li><a href="https://data-hongkong.site/" target="_blank" rel="noopener noreferrer">Data Hongkong 2026</a></li>
-<li><a href="https://data-hk.site" target="_blank" rel="noopener noreferrer">Data HK 2026</a></li>
-<li><a href="https://datasdypools.com/" target="_blank" rel="noopener noreferrer">Data SDY 2026</a></li>
-<li><a href="https://datasydneylotto.website/" target="_blank" rel="noopener noreferrer">Data SDY Lotto</a></li>
-<li><a href="https://datasdylotto1.site/" target="_blank" rel="noopener noreferrer">Data SDY Lotto Hari ini</a></li>
-<li><a href="https://prediksijitu.website/" target="_blank" rel="noopener noreferrer">Prediksi Jitu</a></li>
-<li><a href="https://livedrawsdy2.site/" target="_blank" rel="noopener noreferrer">Live Draw SDY</a></li>
-<li><a href="https://livedrawhk2.site/" target="_blank" rel="noopener noreferrer">Live Draw HK</a></li>
-<li><a href="https://paitohk2.site/" target="_blank" rel="noopener noreferrer">Paito HK</a></li>
-<li><a href="https://paitosdy1.site/" target="_blank" rel="noopener noreferrer">Paito SDY</a></li>
-<li><a href="https://1datahk.site/" target="_blank" rel="noopener noreferrer">Data HK</a></li>
-<li><a href="https://datahklotto.space/" target="_blank" rel="noopener noreferrer">Data HK Lotto</a></li>
-<li><a href="https://www.datasdylotto.space" target="_blank" rel="noopener noreferrer">Data SDY Lotto</a></li>
-<li><a href="https://1angkanet.site/" target="_blank" rel="noopener noreferrer">Angkanet</a></li>
-</ul>
-    </section>
-
-  </main>
-
-  <footer>
-    © 2026 togelonline.space — Notes & Directory
-  </footer>
+<footer class="foot">
+© 2026 togelonline.space — Data Notes
+</footer>
 
 </body>
 </html>
